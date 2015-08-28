@@ -34,6 +34,7 @@ require.config({
     Newsletter: 'app/assets/javascripts/components/Newsletter',
     NewsletterSticky: 'app/assets/javascripts/components/NewsletterSticky',
     StickyColumn: 'app/assets/javascripts/components/StickyColumn',
+    BackToTop: 'app/assets/javascripts/components/BackToTop',
     EmbedCodeGenerator: 'app/assets/javascripts/components/EmbedCodeGenerator',
     ViewAll: 'app/assets/javascripts/components/ViewAll',
 

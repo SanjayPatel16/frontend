@@ -109,3 +109,32 @@
     @include column-shift(3);
   }
 }
+
+.article-3col-main__reLink {
+  position: fixed;
+  right: 0;
+  margin: 0;
+  padding: $baseline-unit*1.5 10px $baseline-unit*1.5 40px;
+  border-radius: $baseline-unit*1.5 0 0 0;
+  white-space: nowrap;
+  color: $color-white;
+  font-weight: bold;
+  text-decoration: none;
+  background-color: $color-green-secondary;
+  z-index: 1;
+}
+
+.article-3col-main__reLink__arrow {
+  width: 20px;
+  height: 12.1572px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: $color-white;
+}
+
+.article-3col-main__reLink:hover,
+.article-3col-main__reLink:focus {
+  text-decoration: underline;
+}

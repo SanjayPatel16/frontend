@@ -24,7 +24,7 @@
   <% end %>
 <% end %>
 
-<div class="l-article-3col-main editorial">
+<div class="l-article-3col-main editorial" data-dough-component="BackToTop">
   <div class="l-main__row">
     <main class="l-main__cell-full t-article-main-content" role="main" data-dough-newsletter-article="true" id="<%= 'main' if !default_main_content_location? %>" tabindex="-1">
       <%= heading_tag article.title %>
@@ -55,6 +55,16 @@
       <%= render 'shared/feedback', article: article %>
     </main>
   </div>
+
+  <a
+    class="article-3col-main__reLink visually-hidden"
+    href="#"
+  >
+    <%= t("articles.nav.back_to_top") %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon article-3col-main__reLink__arrow">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-icon--arrow-thin"></use>
+    </svg>
+  </a>
 </div>
 
 <div class="l-nav l-article-3col-right">
