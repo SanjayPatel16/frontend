@@ -1,4 +1,4 @@
-define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries'], function($, DoughBaseComponent, mediaQueries) {
   'use strict';
 
   var BackToTop,
@@ -12,7 +12,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
   BackToTop = function($el, config) {
     BackToTop.baseConstructor.call(this, $el, config, defaultConfig);
 
-    this.$reLink = this.$el.find('.article-3col-main__reLink');
+    this.$btt_link = this.$el.find('.article-3col-main__btt-link');
   };
 
   /**
@@ -22,9 +22,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
 
   BackToTop.componentName = 'BackToTop';
 
-  BackToTop.prototype._defer = function() {
-    this.$reLink.removeClass('visually-hidden');
-    this.config.linkHeight = this.$reLink.outerHeight();
+  BackToTop.prototype._setUpBTTLink = function() {
+    this.$btt_link.removeClass('visually-hidden');
+    this.config.linkHeight = this.$btt_link.outerHeight();
 
     var self = this;
     var active = false;
@@ -37,7 +37,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
     $(window).resize(function() {self._resize();});
     $(window).scroll(function() {self._scroll();})
 
-    this.$reLink
+    this.$btt_link
       .css('bottom', 0 - this.config.linkHeight)
       .unbind('click')
       .click(function() {
@@ -71,12 +71,14 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
   };
 
   BackToTop.prototype._positioning = function() {
+    console.log('_getActive', this._getActive());
+
     if (this._getActive()) {
       if (!this.config.active) {
         this.config.active = true;
 
-        if (this.$reLink.css('bottom') != "0px") {
-          this.$reLink.stop().animate({bottom:'0px'}, 400);
+        if (this.$btt_link.css('bottom') != '0px') {
+          this.$btt_link.stop().animate({bottom:'0px'}, 400);
         }
       }
 
@@ -89,13 +91,14 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
         howMuchBottom = $('.l-footer').outerHeight() - ($('body').outerHeight() - currentBottom);
       }
 
-      this.$reLink.css('bottom', howMuchBottom);
+      this.$btt_link.css('bottom', howMuchBottom);
     } else {
       if (this.config.active) {
         this.config.active = false;
 
-        if (this.$reLink.css('bottom') != (0 - this.config.linkHeight) + 'px') {
-          this.$reLink.stop().animate({bottom: (0 - this.config.linkHeight) + 'px'}, 400);
+        if (this.$btt_link.css('bottom') != (0 - this.config.linkHeight) + 'px') {
+          // this.$btt_link.stop().animate({bottom: (0 - this.config.linkHeight) + 'px'}, 400);
+          this.$btt_link.css('bottom', (0 - this.config.linkHeight) + 'px');  // removes animation for testing
         }
       }
     }
@@ -105,7 +108,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
   * @param {Promise} initialised
   */
   BackToTop.prototype.init = function(initialised) {
-    this._defer();
+    this._setUpBTTLink();
     this._initialisedSuccess(initialised);
   };
 

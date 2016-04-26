@@ -11,10 +11,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'spec/javascripts/fixtures/stylesheets/lib.css',
       'spec/javascripts/test-main.js',
       'spec/javascripts/templates/*.html',
       'spec/javascripts/fixtures/*.html',
       'spec/javascripts/**/*_spec.js',
+      'vendor/assets/bower_components/dough/vendor/assets/non_bower_components/modernizr/modernizr.js',
       {pattern: 'app/assets/javascripts/**/*.js', included: false},
       {pattern: 'vendor/assets/bower_components/**/*.js', included: false}
     ],
@@ -57,10 +59,32 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    // browsers: ['PhantomJS'],
+    browsers: [/* 'PhantomJS_mobile', 'PhantomJS_desktop', */'Chrome'],
+
+    // Custom browser launchers from phantom-karma-launcher for mobile / desktop
+    customLaunchers: {
+      'PhantomJS_desktop': {
+        base: 'PhantomJS',
+        options: {
+          viewportSize: {
+            width: 1200,
+            height: 1000
+          }
+        }
+      },
+      'PhantomJS_mobile': {
+        base: 'PhantomJS',
+        options: {
+          viewportSize: {
+            width: 320,
+            height: 600
+          }
+        }
+      }
+    },
 
     captureTimeout: 60000,
-
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit

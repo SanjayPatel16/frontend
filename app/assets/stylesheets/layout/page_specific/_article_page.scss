@@ -110,7 +110,7 @@
   }
 }
 
-.article-3col-main__reLink {
+.article-3col-main__btt-link {
   position: fixed;
   right: 0;
   margin: 0;
@@ -124,7 +124,7 @@
   z-index: 1;
 }
 
-.article-3col-main__reLink__arrow {
+.article-3col-main__btt-link__arrow {
   width: 20px;
   height: 12.1572px;
   position: absolute;
@@ -134,7 +134,7 @@
   fill: $color-white;
 }
 
-.article-3col-main__reLink:hover,
-.article-3col-main__reLink:focus {
+.article-3col-main__btt-link:hover,
+.article-3col-main__btt-link:focus {
   text-decoration: underline;
 }
