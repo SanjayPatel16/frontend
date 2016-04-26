@@ -39,6 +39,7 @@ gem 'redcarpet'
 gem 'rouge'
 gem 'rubytree'
 gem 'statsd-ruby'
+gem 'twitter'
 gem 'uglifier', '>= 1.3.0'
 gem 'postcode_anywhere-email_validation'
 
