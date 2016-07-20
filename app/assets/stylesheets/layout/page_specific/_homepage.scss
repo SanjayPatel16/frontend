@@ -21,7 +21,7 @@
   .home-top-promo {
     @include column(12);
 
-    @include respond-to($mq-l) {
+    @include respond-to($mq-m) {
       @include column(6);
     }
   }
