@@ -22,7 +22,7 @@
     @include column(12);
 
     @include respond-to($mq-l) {
-      @include column(5);
+      @include column(6);
     }
   }
 }
