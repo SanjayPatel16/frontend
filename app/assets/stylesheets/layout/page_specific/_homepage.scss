@@ -10,21 +10,21 @@
     display: block;
   }
 
-  .home-top-trust {
-    @include column(12);
+  // .home-top-trust {
+  //   @include column(12);
 
-    @include respond-to($mq-small-tablet, $mq-small-tablet-end) {
-      margin-bottom: $baseline-unit*9;
-    }
-  }
+  //   @include respond-to($mq-small-tablet, $mq-small-tablet-end) {
+  //     margin-bottom: $baseline-unit*9;
+  //   }
+  // }
 
-  .home-top-promo {
-    @include column(12);
+  // .home-top-promo {
+    // @include column(12);
 
-    @include respond-to($mq-m) {
-      @include column(6);
-    }
-  }
+    // @include respond-to($mq-m) {
+    //   @include column(6);
+    // }
+  // }
 }
 
 .l-home-directory {

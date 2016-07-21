@@ -3,7 +3,7 @@
 // Styleguide Home Top
 
 .home-top {
-  padding-bottom: 50%;
+  // padding-bottom: 50%;
   position: relative;
   overflow: hidden;
 
@@ -16,25 +16,75 @@
       background: none;
     }
   }
+}
 
+.home-top .l-constrained {
+  @include respond-to($mq-l) {
+    display: flex;
+  }
 }
 
 .home-top-left,
 .home-top-right {
+  align-items: stretch;
+  // This was giving an unwanted margin to the image column on mobile
+  @include column(12);
+}
+
+.home-top-left {
   @include column(12);
 
+  @include respond-to($mq-m) {
+    @include column(8);
+  }
   @include respond-to($mq-l) {
     @include column(6);
+  }
+}
+
+.home-top-right {
+  @include column(12);
+  position: relative;
+  margin-top: $baseline-unit*3;
+  margin-bottom: $baseline-unit*3;
+
+  background-color:$color-black;
+  background: rgba(0,0,0,0.8);
+
+  @include respond-to($mq-s) {
+    display: flex;
+  }
+
+  @include respond-to($mq-m) {
+    @include column(4);
+    background: none;
+  }
+
+  @include respond-to($mq-l) {
+    margin-top: 0;
+    margin-bottom: 0;
+    @include column(6);
+    display: flex;
   }
 }
 
 .home-top-trust {
   position: relative;
   margin-top: $baseline-unit*7;
-  margin-bottom: $baseline-unit*7;
+  margin-bottom: $baseline-unit*3;
+  @include respond-to($mq-l) {
+    margin-bottom: $baseline-unit*7;
+  }
+}
 
-  @include respond-to($mq-xl) {
-    width: 1000px;
+.home-top-promo, .home-top__image {
+  @include respond-to($mq-s) {
+    width: 50%;
+    float: left;
+  }
+  @include respond-to($mq-m) {
+    width: 100%;
+    float: none;
   }
 }
 
@@ -43,25 +93,20 @@
   // Temporary for testing
   background-color: #ccc;
   background-image: none !important;
-
   background-repeat: no-repeat;
-  background-size: contain;
-  bottom: 0;
-  padding-top: 55.64%;
-  position: absolute;
-  width: 100%;
+  background-size: cover;
+  
+  align-items: stretch;
 
-  @include respond-to($mq-m) {
-    padding-top: 33%;
-    right: 0;
-    width: 50%;
-    position: relative;
+  // padding-top: 55.64/2%;
+  padding-top: 55.64%;
+
+  @include respond-to($mq-s) {
+    padding-top: 27.82%;
   }
 
-  @include respond-to($mq-l) {
-    background-position: right;
-    padding-top: 28%;
-    position: absolute;
+  @include respond-to($mq-m) {
+    padding-top: 55.64%;
   }
 
   @if $responsive == false {
@@ -71,39 +116,16 @@
 
 .home-top-trust__heading {
   @extend %font-heading-heavy;
-  @include body(36, 42);
+  @include body(32, 36);
+
+  @include respond-to($mq-m) {
+    @include body(40, 46);
+  }
+
   color: $color-heading-extra-small;
   margin: 0;
   padding-bottom: $baseline-unit*7;
   padding-top: 0;
-
-  @include respond-to($mq-small-tablet, $mq-small-tablet-end) {
-    max-width: 500px;
-  }
-
-  @include respond-to($mq-m) {
-    @include body(42, 48);
-
-    .theme-cy & {
-      max-width: 600px;
-    }
-  }
-
-  @include respond-to($mq-l) {
-    max-width: 530px;
-
-    .theme-cy & {
-      max-width: 500px;
-    }
-  }
-
-  @include respond-to($mq-xl) {
-    max-width: 620px;
-
-    .theme-cy & {
-      max-width: 750px;
-    }
-  }
 
   @if $responsive == false {
     max-width: 700px;
@@ -123,46 +145,44 @@
 
   @include respond-to($mq-l) {
     max-width: none;
-
-    .theme-cy & {
-      max-width: 570px;
-    }
-  }
-
-  @include respond-to($mq-l, $mq-xl) {
-    .theme-cy & {
-      max-width: 50%;
-    }
   }
 }
 
 .home-top-promo {
-  bottom: 0;
   clear: none;
   margin: 0;
-  position: absolute;
-  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include respond-to($mq-l) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 .home-top-promo__text {
   @extend %font-heading-heavy;
+
   @include body(22, 30);
-  background-color:$color-black;
-  background: rgba(0,0,0,0.8);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  margin: 0 $baseline-unit*3;
-  max-width: 400px;
+
   padding: $baseline-unit $baseline-unit*7 $baseline-unit $baseline-unit*4;
   position: relative;
+  margin: 0;
 
   @include respond-to($mq-m) {
-    margin: $baseline-unit*2 0 0;
+    width: 100%;
     padding: $baseline-unit*2 $baseline-unit*8 $baseline-unit*2 $baseline-unit*4;
+    background-color:$color-black;
+    background: rgba(0,0,0,0.8);
   }
 
   @include respond-to($mq-l) {
-    width: 80%;
+    margin: 0 $baseline-unit*3;
+    max-width: 400px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
   }
 }
 
