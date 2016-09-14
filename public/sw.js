@@ -4,7 +4,7 @@ this.addEventListener('fetch', function(event) {
 	// console.log(event.request);
   event.respondWith(
     new Response(
-      '<h1>helloooo <b>the</b> <i>world!</i></h1>', {
+      '<h1 style="font-weight: normal;">This is <b>not</b> the <i>MAS</i> site!</h1>', {
       headers: {'Content-Type': 'text/html'}
     })
   );
