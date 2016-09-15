@@ -1,5 +1,13 @@
 // Interact with the registered Service Worker via its API
 
+// caching
+this.addEventListener('install', function(event) {
+  console.log(event);
+
+  event.waitUntil()
+});
+
+/*
 this.addEventListener('fetch', function(event) {
 	// console.log(event.request);
   event.respondWith(
@@ -22,3 +30,4 @@ this.addEventListener('fetch', function(event) {
     })
   );
 });
+*/
