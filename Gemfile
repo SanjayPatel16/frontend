@@ -71,7 +71,6 @@ gem 'validate_url', '1.0.0'
 
 group :assets do
   gem 'autoprefixer-rails'
-  gem 'csslint_ruby'
   gem 'uglifier'
 end
 
