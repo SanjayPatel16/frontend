@@ -1,10 +1,6 @@
-require 'asset_pipeline/processors/css_lint'
-
 Rails.application.configure do
 
   config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
-
-  config.assets.register_postprocessor('text/css', AssetPipeline::Processors::CssLint)
 
   # Fonts
   config.assets.precompile << /\.(?:png|svg|eot|woff|ttf)$/
