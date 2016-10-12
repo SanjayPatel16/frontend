@@ -1,5 +1,5 @@
 namespace :karma  do
-  desc 'Install NPM modules'
+  desc 'Install Node modules'
   task :install => :environment do
     install_modules
   end
@@ -42,6 +42,6 @@ namespace :karma  do
   end
 
   def install_modules
-    sh "npm install"
+    sh "yarn install"
   end
 end

@@ -11,6 +11,7 @@ The Money Advice Service's responsive website.
 * [Ruby 2.1.2][Ruby]
 * [Rubygems 2.2.2][Rubygems]
 * [Node.js][Node]
+* [Yarn](https://yarnpkg.com/en/docs/install)
 * [Bundler]
 * [Bower]
 * [MySQL 5.5](http://www.mysql.com/)
