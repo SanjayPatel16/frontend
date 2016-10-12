@@ -37,8 +37,10 @@ gem 'psych', '>= 2.0.5' # https://www.ruby-lang.org/en/news/2014/03/29/heap-over
 gem 'redcarpet'
 gem 'rouge'
 gem 'rubytree'
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0'
 gem 'statsd-ruby'
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
 gem 'postcode_anywhere-email_validation'
 
 gem 'action_plans', '~> 4.3.0'
@@ -70,7 +72,6 @@ gem 'validate_url', '1.0.0'
 group :assets do
   gem 'autoprefixer-rails'
   gem 'csslint_ruby'
-  gem 'jshint_ruby'
   gem 'uglifier'
 end
 
