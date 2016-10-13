@@ -6,6 +6,16 @@ GIT
       actionpack (>= 3.0.0)
 
 GIT
+  remote: git@github.com:moneyadviceservice/dough
+  revision: 479b3c5d9d47b758a546fbafb038839f1709d5b5
+  branch: updating-sass-rails
+  specs:
+    dough-ruby (5.20.0)
+      activesupport
+      rails (>= 3.2)
+      sass-rails (~> 5.0.0)
+
+GIT
   remote: git@github.com:moneyadviceservice/mas-assets
   revision: 1a2a449235eae7a589dbcf55c2107764a49fad5d
   specs:
@@ -731,7 +741,7 @@ DEPENDENCIES
   devise (~> 4.2.0)
   devise-encryptable
   dotenv-rails
-  dough-ruby (~> 5.19.0)
+  dough-ruby!
   draper (< 3)
   ejs
   email_spec (< 2)
