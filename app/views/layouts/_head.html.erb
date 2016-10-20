@@ -1,0 +1,187 @@
+<meta property="fb:pages" content="160564360681471" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<%= optimizely_include_tag if (Rails.env.production? || is_environment_on_uat?) && Feature.active?(:optimizely) %>
+
+<% if hide_elements_irrelevant_for_third_parties? %>
+  <%# This is the new embed code for Optimizely training session and is temporary %>
+  <%# It will only be displayed on the /en/empty and /cy/empty/ pages %>
+  <script src="//cdn.optimizely.com/js/3564241282.js"></script>
+<% end %>
+
+<%= display_meta_tags(site: t('.title'), reverse: true, separator: '-') %>
+<%= csrf_meta_tags %>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"><![endif]-->
+<!--[if IEMobile]>
+<meta http-equiv="cleartype" content="on"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="HandheldFriendly" content="True">
+
+<meta name="application-name" content="Money Advice Service">
+<meta name="msapplication-starturl" content="https://www.moneyadviceservice.org.uk">
+<meta name="msapplication-square70x70logo" content="/favicon_ms_70x70.png">
+<meta name="msapplication-square150x150logo" content="/favicon_ms_150x150.png">
+<meta name="msapplication-wide310x150logo" content="/favicon_ms_310x150.png">
+<meta name="msapplication-square310x310logo" content="/favicon_ms_310x310.png">
+<%= tag 'link', rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon_32x32.png' %>
+<%= tag 'link', rel: 'icon', type: 'image/png', sizes: '48x48', href: '/favicon_48x48.png' %>
+<%= tag 'link', rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon_96x96.png' %>
+<%= tag 'link', rel: 'icon', type: 'image/png', sizes: '128x128', href: '/favicon_128x128.png' %>
+<%= tag 'link', rel: 'icon', type: 'image/png', sizes: '196x196', href: '/favicon_196x196.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '57x57', href: '/favicon_57x57.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '76x76', href: '/favicon_76x76.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '120x120', href: '/favicon_120x120.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '152x152', href: '/favicon_152x152.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '167x167', href: '/favicon_167x167.png' %>
+<%= tag 'link', rel: 'apple-touch-icon-precomposed', sizes: '180x180', href: '/favicon_180x180.png' %>
+<%= tag 'link', rel: 'manifest', href: '/manifest.json' %>
+
+<%= tag 'link', rel: 'publisher', href: Rails.application.config.google_plus_mas_url %>
+<%# Basic styles for all devices, doesn't contain anything that could cause rendering issues
+    such as positional info %>
+<%= stylesheet_link_tag 'dough/assets/stylesheets/basic' %>
+
+<%# Fixed width styles and html5shiv for IE7+8 , styles will not include any media queries,
+    but will include .ie specific fixes %>
+<!--[if ( gte IE 7 ) & ( lte IE 8 ) & (!IEMobile) ]>
+  <%= stylesheet_link_tag 'dough/assets/stylesheets/font_files' %>
+  <%= stylesheet_link_tag 'enhanced_fixed', media: 'all' %>
+  <%= javascript_include_tag 'html5shiv/dist/html5shiv.js' %>
+  <script>var responsiveStyle = false;</script>
+<![endif]-->
+
+<%# Responsive styles for all modern devices, excluded from older IE version %>
+<!--[if ( !IE ) | ( gte IE 9 ) ]><!-->
+<%= stylesheet_link_tag 'enhanced_responsive', media: 'only all' %>
+<script>var responsiveStyle = true;</script>
+<!--<![endif]-->
+
+<%= yield :head %>
+
+<%# START MAS JAVASCRIPT SETUP
+    Any JS that is required before DOM is created should be in this block
+    includes feature detection, analytics setup, JSON bootstrap %>
+<script type="text/javascript">
+
+  <%# // Inline custom Modernizr %>
+  <%= raw Rails.application.assets['modernizr/modernizr'] %>
+
+  <%# // Required for Google Tag Manager %>
+  var dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    'Responsive page': 'Yes',
+    'event': 'Responsive page'
+  });
+  <% if content_for?(:tool_tracking_id) %>
+  dataLayer.push({'toolTrackingId': '<%= content_for(:tool_tracking_id) %>'});
+  <% end %>
+
+  var require = {
+    config: {
+      globals: (function(w, d) {
+        var html, appendFile, bootstrap, fonts, supports;
+
+        <%# // Set variables and default values %>
+        appendFile = function(tag, src, content) {
+          var position = d.getElementsByTagName('script')[0],
+              file = d.createElement(tag);
+          if (tag === 'script') {
+            file.async = true;
+            file.type = "text/javascript";
+          }
+          if (src) file.src = src;
+          if (content) file.innerHTML = content;
+          position.parentNode.insertBefore(file, position);
+        };
+
+        html = d.getElementsByTagName('html')[0];
+
+        bootstrap = {
+          env: '<%= Rails.env %>',
+          timestamp: new Date().getTime(), <%# needs to be run as soon to page load as possible %>
+          i18nLocale: '<%= I18n.locale %>',
+          googleApiCx: '<%= (I18n.locale == :en) ? ENV["GOOGLE_API_CX_EN"] : ENV["GOOGLE_API_CX_CY"] %>'
+        };
+
+        fonts = {
+          url: '<%= stylesheet_path('dough/assets/stylesheets/font_base64') %>',
+          cacheName: 'MAS.fonts',
+          loadClass: 'wf-museosans-n4-active fontsLoaded',
+          localstorage: undefined,
+          loadWithJS: responsiveStyle <%# for responsive load with JS, for fixed load inline in CSS %>
+        };
+
+        <%# Run support tests and cache values %>
+        supports = (function() {
+          var S = {};
+
+          function supportTest(prop, context) {
+            try {
+              return prop in context && context[prop] !== null;
+            } catch (e) {
+              return false;
+            }
+          }
+
+          S.js = supportTest('querySelector', d) && supportTest('localStorage', w) && supportTest('addEventListener', w) ? 'advanced' : 'basic';
+          S.touch = supportTest('ontouchstart', w) || supportTest('onmsgesturechange', w);
+          S.localstorage = supportTest('localStorage', w);
+          S.svg = (function() {
+            return !!d.createElementNS && !!d.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect
+          })();
+          S.test = supportTest;
+
+          return S
+        })();
+
+        <%# Run modify DOM and load files %>
+
+        <%# Load font from localStorage %>
+        if (supports.localstorage && localStorage.getItem(fonts.cacheName) !== null) {
+          html.className = html.className += (' ' + fonts.loadClass);
+          appendFile('style', false, localStorage.getItem(fonts.cacheName));
+          fonts.localstorage = true;
+        }
+
+        <%# JS support > Update className %>
+        html.className = html.className.replace('supports-js', 'supports-js js js-' + supports.js);
+
+        <% if Rails.env.production? %>
+        <%# LOAD: Crazy Egg Heatmaps 3rd Party code %>
+        setTimeout(function() {
+          var src = d.location.protocol + "<%= Rails.application.config.crazy_egg_url %>?" + Math.floor(new Date().getTime() / 3600000);
+          appendFile('script', src);
+        }, 1);
+        <% end %>
+
+        <%# Fix for iPhone viewport scale bug => http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug
+            Copied from Mobile Boiler Plate
+            vp = viewport / ua = user agent / gs = gesture start / sf = scaleFix %>
+        var vp, ua, gs, sf;
+        vp = d.querySelector && d.querySelector('meta[name="viewport"]');
+        ua = navigator.userAgent;
+        sf = function() {
+          if (vp && /iPhone|iPad|iPod/.test(ua) && !/Opera Mini/.test(ua)) {
+            vp.content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+            d.addEventListener("gesturestart", gs, false);
+          }
+        };
+        gs = function() {
+          vp.content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+        };
+
+        <%# Return values to be assigned to MAS global namespace %>
+        return {
+          bootstrap: bootstrap,
+          fonts: fonts,
+          supports: supports
+        };
+      })(window, document)
+    }
+  };
+
+</script>
+<%# END MAS JAVASCRIPT SETUP %>
+

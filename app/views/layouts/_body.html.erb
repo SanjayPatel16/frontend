@@ -1,0 +1,47 @@
+<!--[if ( !IE ) | ( gte IE 9 ) ]><!-->
+<%= render 'shared/svg/icon_sprite' %>
+<!--<![endif]-->
+
+<%# START Google Tag Manager embed code %>
+<% if Rails.env.production? %>
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=<%= Rails.application.config.google_tag_manager_id %>"
+    height="0" width="0" style="display:none;visibility:hidden"
+    title="Google Tag Manager"></iframe>
+  </noscript>
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '<%= Rails.application.config.google_tag_manager_id %>');
+  </script>
+<% end %>
+<%# END Google Tag Manager embed code %>
+
+<a id="top"></a>
+
+<%= yield %>
+
+<% if Rails.env.development? %>
+  <!--[if (gt IE 9)|!(IE)]><!-->
+  <%= javascript_include_tag 'html-inspector/html-inspector' %>
+  <script>
+    HTMLInspector.inspect({
+      excludeRules: ["unused-classes", "script-placement"]
+    })
+  </script>
+  <!--<![endif]-->
+<% end %>
+
+<% unless hide_elements_irrelevant_for_third_parties? %>
+  <%# START RequireJS load of application %>
+  <%= javascript_include_tag 'requirejs/require', data: { main: javascript_path('application') } %>
+  <%# END RequireJS load of application %>
+<% end %>
+
+<%= yield :javascripts %>

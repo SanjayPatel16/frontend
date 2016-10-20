@@ -92,6 +92,25 @@ class ApplicationController < ActionController::Base
   def set_tool_instance
   end
 
+  def check_for_mobile
+    session[:mobile_override] = params[:mobile] if params[:mobile]
+    prepare_for_mobile if mobile_device?
+  end
+
+  def prepare_for_mobile
+    prepend_view_path Rails.root + 'app' + 'views_mobile'
+  end
+
+  def mobile_device?
+    if session[:mobile_override]
+      session[:mobile_override] == "1"
+    else
+      # Season this regexp to taste. I prefer to treat iPad as non-mobile.
+      (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/)
+    end
+  end
+  helper_method :mobile_device?
+
   private
 
   def set_syndicated_x_frame

@@ -4,6 +4,9 @@ class ArticlesController < ApplicationController
   decorates_assigned :parent_category, with: CategoryDecorator
 
   include Navigation
+  include MobilePageHelper
+
+  before_filter :check_for_mobile, :only => [:show]
 
   def show
     @article = interactor.call do |error|
