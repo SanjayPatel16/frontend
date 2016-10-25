@@ -20,6 +20,8 @@
   <%= display_meta_tags(site: t('.title'), reverse: true, separator: '-') %>
   <%= csrf_meta_tags %>
 
+  
+
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <!--[if IE]>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge"><![endif]-->
@@ -227,12 +229,7 @@
 
 <% if Rails.env.development? %>
   <!--[if (gt IE 9)|!(IE)]><!-->
-  <%= javascript_include_tag 'html-inspector/html-inspector' %>
-  <script>
-    HTMLInspector.inspect({
-      excludeRules: ["unused-classes", "script-placement"]
-    })
-  </script>
+
   <!--<![endif]-->
 <% end %>
 

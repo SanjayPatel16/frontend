@@ -72,7 +72,7 @@
 
   @include respond-to($mq-3col-layout) {
     clear: none;
-    @extend %l-3col-side;
+    // @extend %l-3col-side;
 
     .link-list-primary {
       @include column(12);

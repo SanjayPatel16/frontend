@@ -66,7 +66,7 @@ Rails.application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder
   # are already added.
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( test.es6 )
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).

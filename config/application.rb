@@ -7,6 +7,7 @@ require 'action_view/railtie'
 require 'active_model/railtie'
 require 'active_record/railtie'
 require 'sprockets/railtie'
+require 'sprockets/es6'
 
 require_relative '../lib/core_ext'
 require_relative '../lib/tool_mount_point'

@@ -1,4 +1,8 @@
 //= require require_config
+//= require modernizr/modernizr
+//= require es5-shim/es5-shim
+//= require babel/polyfill
+//= require test
 
 require(['common', 'jquery'], function(MAS, $) {
   'use strict';
