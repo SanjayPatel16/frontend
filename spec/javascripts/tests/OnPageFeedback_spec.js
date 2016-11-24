@@ -64,14 +64,14 @@ describe('OnPageFeedback', function() {
     }); 
   });
 
-  describe('Updating the like / dislike count', function(){
-    it('Shows total likes', function(){
-      this.interactionBtn.filter('[data-dough-feedback=positive]').trigger('click');
-      server.respond();
-      expect(this.likesElement.html()).to.equal('12');
-      expect(this.dislikesElement.html()).to.equal('5');
-    });
-  });
+  // describe('Updating the like / dislike count', function(){
+  //   it('Shows total likes', function(){
+  //     this.interactionBtn.filter('[data-dough-feedback=positive]').trigger('click');
+  //     server.respond();
+  //     expect(this.likesElement.html()).to.equal('12');
+  //     expect(this.dislikesElement.html()).to.equal('5');
+  //   });
+  // });
 
 
   afterEach(function () {

@@ -12,8 +12,10 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
     this.submitBtn = $el.find('[data-dough-feedback-submit]');
     this.submitForm = $el.find('[data-dough-feedback-form]');
     this.ajaxUrl = $el.attr('data-dough-on-page-feedback-post');
-    this.likeElement = $el.find('[data-dough-feedback-like-count]');
-    this.dislikeElement = $el.find('[data-dough-feedback-dislike-count]');
+    // this.likeCount = $el.find('[data-dough-feedback-like-count]');
+    // this.dislikeCount = $el.find('[data-dough-feedback-dislike-count]');
+    this.likeElement = $el.find('[data-dough-feedback-like-container]');
+    this.dislikeElement = $el.find('[data-dough-feedback-dislike-container]');
     this.pageId = this._getPageId();
     this.currentPage = 'start';
   };
@@ -84,9 +86,6 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
       el = this.dislikeElement;
     };
 
-    total = parseInt(el.text());
-    el.text(total - 1);
-
     window.setTimeout(function(){
       el.closest('.on-page-feedback__results-item').addClass('is-animating');
     }.bind(this), 300);
@@ -95,12 +94,9 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
     }.bind(this), 600);
   };
 
-  OnPageFeedback.prototype._updateCount = function(data) {
-    this.likesCount = data.likes_count;
-    this.dislikesCount = data.dislikes_count;
 
-    this.likeElement.text(this.likesCount);
-    this.dislikeElement.text(this.dislikesCount);
+  OnPageFeedback.prototype._updateCount = function(data) {
+    var countResponse = data;
   };
 
   OnPageFeedback.prototype._showPage = function(pageName) {
@@ -117,7 +113,6 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
 
       // Ignore stored data if more than 30 days old
       if (json.time > (Date.now() - (30*24*60*60*1000))) {
-        this._updateCount(json);
         this.currentPage = json.current_page;
       }
     }
@@ -126,8 +121,6 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
   OnPageFeedback.prototype._storeState = function() {
     var data = {
       time: Date.now(),
-      likes_count: this.likesCount,
-      dislikes_count: this.dislikesCount,
       current_page: this.currentPage
     }
 
@@ -160,7 +153,9 @@ define(['jquery', 'featureDetect', 'DoughBaseComponent', 'common'], function($, 
     this._bindHandlers();
     this._restoreState();
 
-    if (this.currentPage != 'start') {
+    if (this.currentPage === 'results') {
+      return;
+    } else if (this.currentPage != 'start') {
       this._showPage(this.currentPage);
     }
 
